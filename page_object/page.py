@@ -1,5 +1,7 @@
 import time
 
+from selenium.webdriver import ActionChains
+
 
 class Page:
 
@@ -12,14 +14,19 @@ class Page:
     def find_element_by_locator(self, locator):
         return self.driver.find_element(*locator)
 
-    def find_elements_by_locator(self, locator):
+    def find_elements_by_locator(self, locator) -> list:
         return self.driver.find_elements(*locator)
 
-    def click_element(self, element):
+    def drag_and_drop(self, element_from, element_to):
+        ActionChains(self.driver).drag_and_drop(element_from, element_to).perform()
+
+    @staticmethod
+    def click_element(element):
         element.click()
 
     def find_and_click_element(self, locator):
         self.click_element(self.find_element_by_locator(locator))
 
-    def wait(self):
-        time.sleep(0.5)
+    @staticmethod
+    def wait():
+        time.sleep(1)

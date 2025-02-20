@@ -1,2 +1,10 @@
 BASE_URL = 'https://stellarburgers.nomoreparties.site'
-FORGOT_PASSWORD = BASE_URL + '/forgot-password'
+LOGIN_URL = BASE_URL + '/login'
+FEED_URL = BASE_URL + '/feed'
+INGREDIENT_URL = BASE_URL + '/ingredient'
+FORGOT_PASSWORD_URL = BASE_URL + '/forgot-password'
+RESET_PASSWORD_URL = BASE_URL + '/reset-password'
+ACCOUNT_URL = BASE_URL + '/account/profile'
+ORDER_HISTORY_URL = BASE_URL + '/account/order-history'
+REGISTER_URL = BASE_URL + "/api/auth/register"
+UPDATE_USER_INFO_URL = BASE_URL + "/auth/user"
