@@ -10,7 +10,7 @@ from utils import get_content_header, generate_user_create_str, get_auth_header
 
 @pytest.fixture
 def setup_driver(driver):
-    # driver.maximize_window()
+    driver.maximize_window()
     driver.get(BASE_URL)
     yield driver
     driver.quit()

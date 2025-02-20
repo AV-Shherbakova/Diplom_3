@@ -1,5 +1,6 @@
+from constants import HREF
 from locators.basic_functionality_locators import RESTORE_PASSWORD_LOCATOR, BASE_BUTTON_LOCATOR, \
-    PERSONAL_ACCOUNT_BUTTON_LOCATOR
+    PERSONAL_ACCOUNT_BUTTON_LOCATOR, ORDER_LINK_LOCATOR
 from locators.personal_account_locators import PASSWORD_INPUT_LOCATOR, EMAIL_INPUT_LOCATOR, \
     ORDER_HISTORY_LOCATOR, LOGOUT_LOCATOR
 from page_object.page import Page
@@ -27,3 +28,6 @@ class PersonalAccountPage(Page):
     def click_logout(self):
         self.find_and_click_element(LOGOUT_LOCATOR)
         self.wait()
+
+    def get_last_order_ref(self):
+        return self.find_elements_by_locator(ORDER_LINK_LOCATOR)[0].get_attribute(HREF)

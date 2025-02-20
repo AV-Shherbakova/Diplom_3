@@ -1,5 +1,14 @@
 from selenium.webdriver.common.by import By
 
+
+def by_xpath_locator(locator: str) -> list[str]:
+    return [By.XPATH, locator]
+
+
+def by_class_locator(locator: str) -> list[str]:
+    return [By.CLASS_NAME, locator]
+
+
 BASE_BUTTON_LOCATOR = [By.CLASS_NAME, 'button_button__33qZ0']
 RESTORE_PASSWORD_LOCATOR = [By.XPATH, ".//a[text()='Восстановить пароль']"]
 EMAIL_INPUT_LOCATOR = [By.XPATH, "//label[text()='Email']/following-sibling::input"]
@@ -17,4 +26,13 @@ ORDER_NUMBER_LOCATOR = [By.XPATH,
 CREATE_ORDER_BUTTON_LOCATOR = [By.XPATH,
                                ".//button[@class='button_button__33qZ0 button_button_type_primary__1O7Bx button_button_size_large__G21Vg']"]
 
+ORDER_HISTORY = 'OrderHistory_link__1iNby'
+ORDER_HISTORY_XPATH = f'.//a[@class=\'{ORDER_HISTORY}\']'
+
+ORDER_LINK_LOCATOR = by_xpath_locator(ORDER_HISTORY_XPATH)
+
 NOT_ACTIVE_INGREDIENT_LOCATOR = [By.XPATH, ".//a[@class = 'BurgerIngredient_ingredient__1TVf6 ml-4 mr-4 mb-8']"]
+
+ORDER_COUNTER_LOCATOR = [By.XPATH, ".//p[@class='OrderFeed_number__2MbrQ text text_type_digits-large']"]
+WORKING_ORDER_LIST_LOCATOR = [By.XPATH, ".//ul[@class='OrderFeed_orderListReady__1YFem OrderFeed_orderList__cBvyi']"]
+LIST_ITEM_LOCATOR = ".//li[@class = 'text text_type_digits-default mb-2']"

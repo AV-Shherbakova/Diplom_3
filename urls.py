@@ -6,5 +6,10 @@ FORGOT_PASSWORD_URL = BASE_URL + '/forgot-password'
 RESET_PASSWORD_URL = BASE_URL + '/reset-password'
 ACCOUNT_URL = BASE_URL + '/account/profile'
 ORDER_HISTORY_URL = BASE_URL + '/account/order-history'
-REGISTER_URL = BASE_URL + "/api/auth/register"
+
 UPDATE_USER_INFO_URL = BASE_URL + "/auth/user"
+
+API_URL = BASE_URL + '/api'
+REGISTER_URL = API_URL + "/auth/register"
+INGREDIENTS_URL = API_URL + "/ingredients"
+ORDER_URL = API_URL + "/orders"

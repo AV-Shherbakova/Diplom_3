@@ -17,7 +17,7 @@ class TestPasswordRecovery:
         forgot_pass_page.enter_mail_and_click_recover()
         assert driver.current_url == RESET_PASSWORD_URL
 
-    @pytest.mark.parametrize('driver', [webdriver.Chrome()])
+    @pytest.mark.parametrize('driver', [webdriver.Chrome(), webdriver.Firefox()])
     def test_password_recovery(self, driver, setup_driver):
         home_page = HomePage(driver)
         home_page.click_account_button()
@@ -25,11 +25,11 @@ class TestPasswordRecovery:
         account_page.click_restore_button()
         assert driver.current_url == FORGOT_PASSWORD_URL
 
-    @pytest.mark.parametrize('driver', [webdriver.Chrome()])
+    @pytest.mark.parametrize('driver', [webdriver.Chrome(), webdriver.Firefox()])
     def test_enter_mail_and_click_recovery(self, driver, setup_driver):
         self.reset_password(driver)
 
-    @pytest.mark.parametrize('driver', [webdriver.Chrome()])
+    @pytest.mark.parametrize('driver', [webdriver.Chrome(), webdriver.Firefox()])
     def test_reveal_password_click(self, driver, setup_driver):
         self.reset_password(driver)
         reset_page = ResetPasswordPage(driver)

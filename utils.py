@@ -2,7 +2,11 @@ import json
 import random
 import string
 
-from constants import PASSWORD
+import requests
+from requests import Response
+
+from constants import PASSWORD, ACCESS_TOKEN, ID
+from urls import INGREDIENTS_URL, ORDER_URL
 
 
 def generate_random_string(length):
@@ -35,3 +39,22 @@ def get_user_data(email: str, name: str):
         "email": email,
         "password": PASSWORD
     }
+
+
+def get_ingredients_response():
+    return requests.get(INGREDIENTS_URL, headers=get_content_header())
+
+
+def create_order_and_get_field(create_response: Response, field: str):
+    ingredient_response = get_ingredients_response()
+    ingredients: list = ingredient_response.json().get('data')
+    ingredient1 = ingredients[0]
+    ingredient2 = ingredients[1]
+    ingredient_ids = [ingredient1.get(ID), ingredient2.get(ID)]
+    order_data = {
+        "ingredients": ingredient_ids
+    }
+    token = create_response.json().get(ACCESS_TOKEN)
+    auth_headers = get_auth_header(token)
+    order_response = requests.post(ORDER_URL, headers=auth_headers, json=order_data)
+    return order_response.json().get('order').get(field)

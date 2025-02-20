@@ -10,7 +10,7 @@ from urls import ACCOUNT_URL, ORDER_HISTORY_URL, LOGIN_URL
 
 class TestPersonalAccount:
 
-    @pytest.mark.parametrize('driver', [webdriver.Chrome()])
+    @pytest.mark.parametrize('driver', [webdriver.Chrome(), webdriver.Firefox()])
     def test_personal_account_page_open(self, driver, setup_driver, create_and_remove_user):
         home_page = HomePage(driver)
         home_page.click_account_button()
@@ -20,7 +20,7 @@ class TestPersonalAccount:
         account_page.click_personal_account()
         assert driver.current_url == ACCOUNT_URL
 
-    @pytest.mark.parametrize('driver', [webdriver.Chrome()])
+    @pytest.mark.parametrize('driver', [webdriver.Chrome(), webdriver.Firefox()])
     def test_order_history_open(self, driver, setup_driver, create_and_remove_user):
         home_page = HomePage(driver)
         home_page.click_account_button()
@@ -31,7 +31,7 @@ class TestPersonalAccount:
         account_page.click_order_history()
         assert driver.current_url == ORDER_HISTORY_URL
 
-    @pytest.mark.parametrize('driver', [webdriver.Chrome()])
+    @pytest.mark.parametrize('driver', [webdriver.Chrome(), webdriver.Firefox()])
     def test_logout(self, driver, setup_driver, create_and_remove_user):
         home_page = HomePage(driver)
         home_page.click_account_button()
