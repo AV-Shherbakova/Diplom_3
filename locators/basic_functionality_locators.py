@@ -14,7 +14,7 @@ RESTORE_PASSWORD_LOCATOR = [By.XPATH, ".//a[text()='Восстановить п�
 EMAIL_INPUT_LOCATOR = [By.XPATH, "//label[text()='Email']/following-sibling::input"]
 PERSONAL_ACCOUNT_BUTTON_LOCATOR = [By.XPATH, "//p[text()='Личный Кабинет']"]
 CONSTRUCTOR_BUTTON_LOCATOR = [By.XPATH, "//p[text()='Конструктор']"]
-BURGER_CONSTRUCTOR_LOCATOR = [By.XPATH, "//section[@class='BurgerConstructor_basket__29Cd7 mt-25 ']"]
+BURGER_CONSTRUCTOR_LOCATOR = [By.XPATH, "//span[@class='constructor-element__row']"]
 FEED_BUTTON_LOCATOR = [By.XPATH, "//p[text()='Лента Заказов']"]
 MODAL_CLOSE_BUTTON_LOCATOR = [By.XPATH,
                               ".//button[@class = 'Modal_modal__close_modified__3V5XS Modal_modal__close__TnseK']"]
@@ -35,4 +35,6 @@ NOT_ACTIVE_INGREDIENT_LOCATOR = [By.XPATH, ".//a[@class = 'BurgerIngredient_ingr
 
 ORDER_COUNTER_LOCATOR = [By.XPATH, ".//p[@class='OrderFeed_number__2MbrQ text text_type_digits-large']"]
 WORKING_ORDER_LIST_LOCATOR = [By.XPATH, ".//ul[@class='OrderFeed_orderListReady__1YFem OrderFeed_orderList__cBvyi']"]
-LIST_ITEM_LOCATOR = ".//li[@class = 'text text_type_digits-default mb-2']"
+LIST_ITEM_LOCATOR = [By.XPATH, ".//li[@class = 'text text_type_digits-default mb-2']"]
+MODAL_LOCATOR = [By.XPATH, ".//div[@class='Modal_modal_overlay__x2ZCr']"]
+BUN_LOCATOR = [By.XPATH, ".//p[contains(text(), 'булка')]"]

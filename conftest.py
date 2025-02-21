@@ -3,14 +3,18 @@ import json
 import pytest
 import requests
 
+from browser import Browser
 from constants import ACCESS_TOKEN
-from urls import BASE_URL, REGISTER_URL, UPDATE_USER_INFO_URL
-from utils import get_content_header, generate_user_create_str, get_auth_header
+from urls import REGISTER_URL, UPDATE_USER_INFO_URL, BASE_URL
+from utils import get_content_header, generate_user_create_str, get_auth_header, get_driver
 
 
-@pytest.fixture
-def setup_driver(driver):
-    driver.maximize_window()
+@pytest.fixture(params=[
+    Browser.CHROME,
+    Browser.FIREFOX
+])
+def driver(request):
+    driver = get_driver(request.param)
     driver.get(BASE_URL)
     yield driver
     driver.quit()

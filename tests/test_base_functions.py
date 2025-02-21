@@ -1,9 +1,6 @@
-import time
+import allure
 
-import pytest
-from selenium import webdriver
-
-from conftest import setup_driver, create_and_remove_user
+from conftest import driver, create_and_remove_user
 from constants import PASSWORD
 from page_object.home_page import HomePage
 from page_object.personal_account_page import PersonalAccountPage
@@ -12,41 +9,42 @@ from urls import FEED_URL, BASE_URL
 
 class TestBaseFunctions:
 
-    @pytest.mark.parametrize('driver', [webdriver.Chrome(), webdriver.Firefox()])
-    def test_feed_click(self, driver, setup_driver):
+    @allure.title("Проверка нажатия на Ленту Заказов")
+    def test_feed_click(self, driver):
         home_page = HomePage(driver)
         home_page.click_feed_button()
-        assert driver.current_url == FEED_URL
+        assert home_page.get_current_url() == FEED_URL
 
-    @pytest.mark.parametrize('driver', [webdriver.Chrome(), webdriver.Firefox()])
-    def test_constructor_click(self, driver, setup_driver):
+    @allure.title("Проверка нажатия на Конструктор")
+    def test_constructor_click(self, driver):
         home_page = HomePage(driver)
         home_page.click_feed_button()
-        assert driver.current_url == FEED_URL
+        assert home_page.get_current_url() == FEED_URL
         home_page.click_constructor_button()
-        assert driver.current_url == BASE_URL + '/'
+        assert home_page.get_current_url() == BASE_URL + '/'
 
-    @pytest.mark.parametrize('driver', [webdriver.Chrome(), webdriver.Firefox()])
-    def test_ingredient_click(self, driver, setup_driver):
+    @allure.title("Проверка нажатия на ингредиент")
+    def test_ingredient_click(self, driver):
         home_page = HomePage(driver)
         link = home_page.click_random_ingredient_and_return_ref()
-        assert driver.current_url == link
+        assert home_page.get_current_url() == link
 
-    @pytest.mark.parametrize('driver', [webdriver.Chrome(), webdriver.Firefox()])
-    def test_close_modal_click(self, driver, setup_driver):
+    @allure.title("Проверка закрытия модального окна ингредиента")
+    def test_close_modal_click(self, driver):
         home_page = HomePage(driver)
         home_page.click_random_ingredient_and_return_ref()
-        assert home_page.get_ingredient_model_opened() == True
+        assert home_page.get_ingredient_modal_opened() == True
         home_page.close_modal()
-        assert home_page.get_ingredient_model_opened() == False
+        assert home_page.get_ingredient_modal_opened() == False
 
-    @pytest.mark.parametrize('driver', [webdriver.Chrome(), webdriver.Firefox()])
-    def test_increase_ingredient_counter(self, driver, setup_driver):
+    @allure.title("Проверка увеличения количества ингредиентов")
+    def test_increase_ingredient_counter(self, driver):
         home_page = HomePage(driver)
-        assert home_page.add_ingredient_and_return_counter() > 0
+        counter = home_page.add_ingredient_and_return_counter()
+        assert counter > 0
 
-    @pytest.mark.parametrize('driver', [webdriver.Chrome(), webdriver.Firefox()])
-    def test_create_order(self, driver, setup_driver, create_and_remove_user):
+    @allure.title("Проверка создания заказа")
+    def test_create_order(self, driver, create_and_remove_user):
         home_page = HomePage(driver)
         home_page.click_account_button()
         account_page = PersonalAccountPage(driver)
@@ -54,6 +52,5 @@ class TestBaseFunctions:
         account_page.sign_in(email, PASSWORD)
         home_page.create_default_ingredient_order()
         home_page.click_create_order_button()
-        time.sleep(5)
-        order_number = home_page.get_order_number()
-        assert order_number != 9999
+        text_changed = home_page.order_number_changed()
+        assert text_changed

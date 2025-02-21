@@ -4,7 +4,12 @@ import string
 
 import requests
 from requests import Response
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options as ChromeOptions
+from selenium.webdriver.firefox.options import Options as FirefoxOptions
+from selenium.webdriver.ie.webdriver import WebDriver
 
+from browser import Browser
 from constants import PASSWORD, ACCESS_TOKEN, ID
 from urls import INGREDIENTS_URL, ORDER_URL
 
@@ -58,3 +63,23 @@ def create_order_and_get_field(create_response: Response, field: str):
     auth_headers = get_auth_header(token)
     order_response = requests.post(ORDER_URL, headers=auth_headers, json=order_data)
     return order_response.json().get('order').get(field)
+
+
+def get_driver(browser: Browser) -> WebDriver:
+    return webdriver.Firefox(options=get_options(browser)) \
+        if browser == Browser.FIREFOX \
+        else \
+        webdriver.Chrome(options=get_options(browser))
+
+
+def get_options(browser: Browser):
+    if browser == Browser.FIREFOX:
+        options = FirefoxOptions()
+        options.add_argument("--start-maximized")
+        options.set_preference("layout.css.devPixelsPerPx", "0.8")
+        return options
+    else:
+        options = ChromeOptions()
+        options.add_argument("--start-maximized")
+        options.add_argument("--force-device-scale-factor=0.8")
+        return options
